@@ -126,4 +126,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://django-loan.onrender.com/']
+    'https://django-loan.onrender.com']
