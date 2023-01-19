@@ -1,0 +1,4 @@
+django
+uvicorn
+requests
+django-crispy-forms
