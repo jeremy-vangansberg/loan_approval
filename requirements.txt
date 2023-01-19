@@ -1,5 +1,0 @@
-django
-fastapi
-scikit-learn
-pandas
-uvicorn
