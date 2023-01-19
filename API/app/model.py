@@ -1,7 +1,7 @@
 import pickle
 import pandas as pd
 
-model = pickle.load(open('app/rfc.sav', 'rb'))
+model = pickle.load(open('app/rfc.pkl', 'rb'))
 
 
 col = ['Term', 'NoEmp', 'NewExist', 'CreateJob', 'RetainedJob', 'UrbanRural',
