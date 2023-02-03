@@ -5,21 +5,18 @@ from app.model import predict_pipeline
 
 app = FastAPI()
 
-['Term', 'NoEmp', 'NewExist', 'CreateJob', 'RetainedJob', 'UrbanRural',
-       'RevLineCr', 'LowDoc', 'DisbursementGross', 'BalanceGross', 'GrAppv',
-       'SBA_Appv']
 
 class TextIn(BaseModel):
+    State : str
+    NAICS :str
     Term : int
-    NoEmp :int
-    NewExist : float
+    NoEmp : int
+    NewExist : str
     CreateJob : int
-    RetainedJob : float
-    UrbanRural : int
+    RetainedJob : int
+    UrbanRural :int
     RevLineCr : str
-    LowDoc :str
-    DisbursementGross : int
-    BalanceGross : int
+    LowDoc : str
     GrAppv : int
 
 class PredictionOut(BaseModel):
@@ -27,20 +24,9 @@ class PredictionOut(BaseModel):
 
 @app.post("/predict", response_model=PredictionOut)
 def predict(payload: TextIn):
+    values = [x for x in payload.__dict__.values()]
     category_pred = predict_pipeline(
-        [
-            payload.Term,
-            payload.NoEmp,
-            payload.NewExist,
-            payload.CreateJob,
-            payload.RetainedJob,
-            payload.UrbanRural,
-            payload.RevLineCr,
-            payload.LowDoc,
-            payload.DisbursementGross,
-            payload.BalanceGross,
-            payload.GrAppv
-        ]
+        values
     )
     return {'category': category_pred}
 

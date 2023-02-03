@@ -1,14 +1,16 @@
 import pickle
 import pandas as pd
+import numpy as np
 
-model = pickle.load(open('app/rfc.pkl', 'rb'))
-
-
-col = ['Term', 'NoEmp', 'NewExist', 'CreateJob', 'RetainedJob', 'UrbanRural',
-       'RevLineCr', 'LowDoc', 'DisbursementGross', 'BalanceGross', 'GrAppv']
+model = pickle.load(open('app/xgb.pkl', 'rb'))
 
 
-to_predict = [84, 45, 1.0, 0, 0, 0, 'N', 'N', 170000, 0, 170000, 127500]
+col = ['State', 'NAICS', 'Term', 'NoEmp', 'NewExist', 'CreateJob',
+       'RetainedJob', 'UrbanRural', 'RevLineCr', 'LowDoc', 'GrAppv']
+
+
+to_predict = np.array(['FL', '44', 2, 2, 'True', 1, 2, 1, 'Y', 'N', 70000], dtype=object)
+
 
 labels = [
   'Risque élevé',
@@ -20,3 +22,6 @@ def predict_pipeline(list_of_values=None):
     to_predict = pd.DataFrame(temp, index=[0])
     index_class = model.predict(to_predict)[0]
     return labels[index_class]
+
+
+# print(predict_pipeline(list_of_values=to_predict))
